@@ -9,11 +9,6 @@ public class Radio {
     }
 
     public void setStationNumber(int stationNumber) {
-        if (stationNumber > 9) {
-            stationNumber = 0;
-        } else if (stationNumber < 0) {
-            stationNumber = 9;
-        }
         this.stationNumber = stationNumber;
     }
 
@@ -22,47 +17,35 @@ public class Radio {
     }
 
     public void setVolume(int volume) {
-        if (volume > 10) {
-            volume = 10;
-        } else if (volume < 1) {
-            volume = 1;
-        }
         this.volume = volume;
     }
 
+    public void volumeUp () {
+        if (volume==10) {
+            volume = 10;
+        } else
+            volume++;
+    }
 
-    public int[] radioButtons(String buttonValue, int stationNumber, int volume) {
-//        Scanner scanner = new Scanner(System.in);
-        if (buttonValue.equals("Previous")) {
-            if (stationNumber == 0) {
-                stationNumber = 9;
-            } else
-                stationNumber--;
-        }
+    public void volumeDown () {
+        if (volume==0) {
+            volume = 0;
+        } else
+            volume--;
+    }
 
-        if (buttonValue.equals("Next")) {
-            if (stationNumber == 9) {
-                stationNumber = 0;
-            } else
-                stationNumber++;
-        }
+    public void stationUp () {
+        if (stationNumber==9) {
+            stationNumber = 0;
+        } else
+            stationNumber++;
+    }
 
-        if (buttonValue.equals("-")) {
-            if (volume == 1) {
-                volume = 1;
-            } else
-                volume--;
-        }
-
-        if (buttonValue.equals("+")) {
-            if (volume == 10) {
-                volume = 10;
-            } else
-                volume++;
-        }
-
-        int[] values = {stationNumber, volume};
-        return values;
+    public void stationDown () {
+        if (stationNumber==0) {
+            stationNumber = 9;
+        } else
+            stationNumber--;
     }
 }
 

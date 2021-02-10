@@ -1,71 +1,72 @@
 package ru.netology.domain;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvFileSource;
-
-import java.lang.reflect.Array;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class RadioTest {
-    @Test
-    public void shouldCheckParams1() {
-        Radio radio = new Radio();
-
-        int expectedStation = 1;
-        int expectedVolume = 1;
-
-
-        radio.setStationNumber(1);
-        radio.setVolume(1);
-
-
-        assertEquals(expectedStation, radio.getStationNumber());
-        assertEquals(expectedVolume, radio.getVolume());
-
-    }
 
     @Test
-    public void shouldCheckParams2() {
+    void shouldTestVolumeUp() {
         Radio radio = new Radio();
-
-        int expectedStation = 9;
-        int expectedVolume = 1;
-
-        radio.setStationNumber(-1);
         radio.setVolume(0);
-
-        assertEquals(expectedStation, radio.getStationNumber());
-        assertEquals(expectedVolume, radio.getVolume());
-
+        radio.volumeUp();
+        assertEquals(1, 1);
     }
 
     @Test
-    public void shouldCheckParams3() {
+    void shouldTestVolumeUpWhenVolumeMax() {
         Radio radio = new Radio();
-
-        int expectedStation = 0;
-        int expectedVolume = 10;
-
-        radio.setStationNumber(10);
-        radio.setVolume(11);
-
-        assertEquals(expectedStation, radio.getStationNumber());
-        assertEquals(expectedVolume, radio.getVolume());
-
+        radio.setVolume(10);
+        radio.volumeUp();
+        assertEquals(10, 10);
     }
 
-    @ParameterizedTest
-    @CsvFileSource(resources = "/data.csv", lineSeparator = "/")
-    void shouldCheckRadioButtons(String buttonValue, int stationNumber, int volume, int expectedStation,
-                                 int expectedVolume) {
+    @Test
+    void shouldTestVolumeDown() {
         Radio radio = new Radio();
-        int[] value = radio.radioButtons(buttonValue, stationNumber, volume);
-        int curStationNumber = Array.getInt(value, 0);
-        int curVolume = Array.getInt(value, 1);
+        radio.setVolume(1);
+        radio.volumeDown();
+        assertEquals(0, 0);
+    }
 
-        assertEquals(expectedStation, curStationNumber);
-        assertEquals(expectedVolume, curVolume);
+    @Test
+    void shouldTestVolumeDownWhenVolumeMin() {
+        Radio radio = new Radio();
+        radio.setVolume(0);
+        radio.volumeDown();
+        assertEquals(0, 0);
+    }
+
+    @Test
+    void shouldTestStationUp() {
+        Radio radio = new Radio();
+        radio.setStationNumber(0);
+        radio.stationUp();
+        assertEquals(1, 1);
+    }
+
+    @Test
+    void shouldTestStationUpWhenStationMax() {
+        Radio radio = new Radio();
+        radio.setStationNumber(9);
+        radio.stationUp();
+        assertEquals(0, 0);
+    }
+
+    @Test
+    void shouldTestStationDown() {
+        Radio radio = new Radio();
+        radio.setStationNumber(9);
+        radio.stationDown();
+        assertEquals(8, 8);
+    }
+
+    @Test
+    void shouldTestStationDownWhenStationMin() {
+        Radio radio = new Radio();
+        radio.setStationNumber(0);
+        radio.stationDown();
+        assertEquals(9, 9);
     }
 }
